@@ -40,17 +40,37 @@ namespace Final_example
         {
             string[] words = word.Split(new[] { " " }, StringSplitOptions.None);
             string result = string.Empty;
-            int len = 0;
+            int len = int.MaxValue;
             foreach (string s in words)
             {
-                if (s.Length > len)
+                if (s.Length < len)
                 {
-                    result = s;
+                    result= s;
                     len = s.Length;
                 }
             }
 
             return result;
+        }
+
+        public static bool BracketCount(string str)
+        {
+            int open = 0;
+            int closed = 0;
+            char[] chars = str.ToCharArray();
+            foreach(char c in chars)
+            {
+                if(c == '[')
+                {
+                    open++;
+                }
+                if(c == ']')
+                {
+                    closed++;
+                }
+            }
+
+            return open==closed;
         }
     }
 }
