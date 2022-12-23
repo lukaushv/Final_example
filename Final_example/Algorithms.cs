@@ -18,17 +18,17 @@ namespace Final_example
 
             return result;
         }
-        
+
         public static string LongestInSentence(string word)
         {
             string[] words = word.Split(new[] { " " }, StringSplitOptions.None);
             string result = string.Empty;
             int len = 0;
-            foreach(string s in words)
+            foreach (string s in words)
             {
-                if(s.Length > len)
+                if (s.Length > len)
                 {
-                    result= s;
+                    result = s;
                     len = s.Length;
                 }
             }
@@ -45,7 +45,7 @@ namespace Final_example
             {
                 if (s.Length < len)
                 {
-                    result= s;
+                    result = s;
                     len = s.Length;
                 }
             }
@@ -53,24 +53,40 @@ namespace Final_example
             return result;
         }
 
-        public static bool BracketCount(string str)
+        public static bool BracketMatch(string str)
         {
-            int open = 0;
-            int closed = 0;
-            char[] chars = str.ToCharArray();
-            foreach(char c in chars)
+            var stack = new Stack<char>();
+            var chars = str.ToCharArray();
+            foreach (var c in chars)
             {
-                if(c == '[')
+                if (c is '[' or '{' or '(')
                 {
-                    open++;
+                    stack.Push(c);
+                    continue;
                 }
-                if(c == ']')
+                if (c is ']')
                 {
-                    closed++;
+                    if (!stack.TryPop(out char last) || last != '[')
+                    {
+                        return false;
+                    }
+                }
+                if (c is '}')
+                {
+                    if (!stack.TryPop(out char last) || last != '{')
+                    {
+                        return false;
+                    }
+                }
+                if (c is ')')
+                {
+                    if (!stack.TryPop(out char last) || last != '(')
+                    {
+                        return false;
+                    }
                 }
             }
-
-            return open==closed;
+            return stack.Count == 0;
         }
     }
 }
