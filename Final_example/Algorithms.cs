@@ -40,7 +40,7 @@ namespace Final_example
         {
             string[] words = word.Split(new[] { " " }, StringSplitOptions.None);
             string result = string.Empty;
-            int len = int.MaxValue;
+            int len = word.Length;
             foreach (string s in words)
             {
                 if (s.Length < len)
